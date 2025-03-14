@@ -2,7 +2,7 @@
 title = "Preswald Project"
 version = "0.1.0"
 port = 8501
-slug = "my-project-116520"  # Required: Unique identifier for your project
+slug = "slug = "shejalshankar-weather-app-2025""  # Required: Unique identifier for your project
 entrypoint = "hello.py"    # Required: Main script to run when executing preswald run
 
 [branding]
