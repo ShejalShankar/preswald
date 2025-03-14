@@ -12,6 +12,11 @@ if df is None:
     text("Failed to load data. Check dataset 'sample_csv' and preswald.toml.")
     exit()
 
+# ✅ Ensure 'date' column is properly formatted
+if 'date' in df.columns:
+    df['date'] = pd.to_datetime(df['date'])  # Convert to datetime format
+    df['date_str'] = df['date'].dt.strftime('%Y-%m-%d')  # Create a string version for plotting
+
 # Query the dataset
 sql = "SELECT * FROM weather WHERE temp_max > 5.0"
 filtered_df = query(sql, "weather")
@@ -34,24 +39,24 @@ fig.update_traces(textposition='top center')
 fig.update_layout(template='plotly_white')
 plotly(fig)
 
-# Time Series Plot (Single Variable)
+# ✅ Time Series Plot (Single Variable) - Using `date_str` for serialization
 fig_line = px.line(
     df,
-    x='date',
+    x='date_str',  # Use the string column
     y='temp_max',
     title='Max Temperature Over Time',
-    labels={'date': 'Date', 'temp_max': 'Max Temperature (°C)'}
+    labels={'date_str': 'Date', 'temp_max': 'Max Temperature (°C)'}
 )
 fig_line.update_layout(template='plotly_white')
 plotly(fig_line)
 
-# Time Series Plot (Multiple Variables)
+# ✅ Time Series Plot (Multiple Variables) - Using `date_str`
 fig_time_series = px.line(
     df,
-    x='date',
+    x='date_str',  # Use string column
     y=['temp_max', 'temp_min'],
     title='Temperature Trends Over Time',
-    labels={'date': 'Date', 'value': 'Temperature (°C)', 'variable': 'Temperature Type'},
+    labels={'date_str': 'Date', 'value': 'Temperature (°C)', 'variable': 'Temperature Type'},
     color_discrete_map={'temp_max': 'red', 'temp_min': 'blue'}
 )
 fig_time_series.update_layout(template='plotly_white')
@@ -81,6 +86,7 @@ text("## Interactive Data Exploration")
 # Slider for Dynamic Filtering
 text("### Filter Data by Temperature Threshold")
 threshold = slider("Temperature Threshold (°C)", min_val=-10, max_val=40, default=5)
+
 # Statistical Insights Section
 text("## Statistical Insights")
 
