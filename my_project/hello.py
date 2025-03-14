@@ -1,4 +1,4 @@
-from preswald import text, plotly, connect, get_df, table, query, slider
+'''from preswald import text, plotly, connect, get_df, table, query, slider
 import pandas as pd
 import plotly.express as px
 
@@ -127,4 +127,6 @@ text("### Filtered Data (Temp Max > 5°C)")
 table(filtered_df.head(10), title="Filtered Data")
 
 text("### Raw Data (First 10 Rows)")
-table(df.head(10), title="Raw Data")
+table(df.head(10), title="Raw Data") '''
+
+print("Shejal")
